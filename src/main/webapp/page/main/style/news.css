@@ -1,0 +1,77 @@
+html { width:100%; text-align:center; font-size:12px; }
+body { margin:0; padding:0; width:100%; font-family:tamoha, Arial, "宋体"; background:url(images/body_bg.gif) repeat left top;}
+div, form, img, ul, ol, li, dl, dt, dd, table, td, tr, th, p, span { margin: 0; padding: 0; font-size: 12px; }
+li { list-style-type: none; text-align: left; }
+select, input, button { font-size: 12px; font-family: Arial, "宋体" }
+em { font-style: normal; }
+h1, h2, h3, h4, h5, h6 { margin: 0; padding: 0; font-weight: normal; font-size: 12px; }
+img { vertical-align: middle; text-align: center; }
+a:link ,a:visited{text-decoration: none; color:#444; }
+a:hover { text-decoration:underline; color:#155fbe; }
+button{cursor:pointer;}
+/******************框架**********************/
+.body_main{background:url(images/main_bg.png) repeat-y center top; width:917px; padding:0px 71px;  margin: 0px auto;  }
+.topframe_01{background:url(images/head.jpg) no-repeat center top; height: 188px; width: 100%;}
+.topframe_03{overflow:hidden; margin-bottom:5px;}
+.mainframe{overflow:hidden; padding-top:20px;}
+.mainframe_01{}
+.botframe{position:relative;}
+/*======================登录========================*/
+.UrlPortlet01 h3{display:none;}
+.UrlPortlet01 li{float:left; padding:10px;}
+.UrlPortlet01 li a{color:#fff;}
+/*======================导航========================*/
+.Navigation_01 {width:100%; height:36px; background:#e5dfaa;}
+.Navigation_01 h3 {display:none;}
+.Navigation_01 li {float:left;}
+.Navigation_01 li a span {font:bold 12px/36px "宋体"; color:#a18240; padding:0px 26px;}
+.Navigation_01 li a:hover{text-decoration:none;}
+.Navigation_01 li a:hover span{background:url(images/ic_01.gif) no-repeat 18px center;}
+.Navigation_01 .current a span{background:url(images/ic_01.gif) no-repeat 18px center;}
+/*=====================当前位置=========================*/
+.ShowPlaceNavigate {line-height:30px; width:100%; text-align:left;}
+.ShowPlaceNavigate h3 {display:none;}
+.ShowPlaceNavigate em {padding-left:10px;}
+/*=====================新闻内容=========================*/
+.NewsContent {border-top:1px solid #ddd; min-height: 500px; _height: 500px; padding-bottom:30px; }
+.NewsContent:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.NewsContent .title { margin: 20px auto; width:95%; }
+.NewsContent .title h3 {color: #333; font:24px/50px '微软雅黑';}
+.NewsContent .title h4 { margin-top:20px; color:#666; background:#f6f6f6; height: 24px; line-height:24px; }
+.NewsContent .title h4 span { margin: 0 10px; }
+.NewsContent .con { line-height: 200%; color: #5d5d5d; width: 92%; margin: 10px auto 0px; text-align: left; }
+.NewsContent .con p { text-indent: 2em; font-size:14px; line-height:28px; margin-bottom:10px;}
+.NewsContent .changesize,.NewsContent .bar,.NewsContent .updown_page{display: none;}
+/*======================底部========================*/
+.TextDisplay_05{width:100%; border-top:3px solid #aeaeae; margin-top:15px; background:url(images/foot_bg1.gif) no-repeat left 3px;}
+.TextDisplay_05 h3{display:none;}
+.TextDisplay_05 .con{padding:20px 0px; background:url(images/foot_bg2.gif) no-repeat right 3px;}
+.TextDisplay_05 p{line-height:24px; color:#777;}
+/*======================微信========================*/
+.TextDisplay_06{position:absolute; right:50px; top:10px;}
+.TextDisplay_06 h3{display:none;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

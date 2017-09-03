@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.pfw.framework.wjgl.domain.ContactWebTopic" table="T_WJGL_CONTACT_WEB_TOPIC">
+        <comment>接触网题目</comment>
+        <id name="id" type="java.lang.String">
+            <column name="ID" length="32" />
+            <generator class="uuid.hex" />
+        </id>
+        <property name="topicName" type="java.lang.String">
+            <column name="TOPIC_NAME" length="200">
+                <comment>试题名称</comment>
+            </column>
+        </property>
+        <property name="topicType" type="java.lang.String">
+            <column name="TOPIC_TYPE" length="10">
+                <comment>类型</comment>
+            </column>
+        </property>
+        <many-to-one name="twjfafl" class="org.pfw.framework.wjgl.domain.Twjfafl" fetch="select">
+            <column name="TWJFAFL" length="32">
+                <comment>所属分类ID</comment>
+            </column>
+        </many-to-one>
+        <property name="creationTime" type="java.lang.String">
+            <column name="CREATION_TIME" length="20">
+                <comment>创建时间</comment>
+            </column>
+        </property>
+        <property name="textField" type="java.lang.String">
+            <column name="TEXT_FIELD" >
+                <comment>文本域</comment>
+            </column>
+        </property>
+        <property name="knowledgePoint" type="java.lang.String">
+            <column name="KNOWLEDGE_POINT" length="1000">
+                <comment>知识点</comment>
+            </column>
+        </property>
+        <property name="status" type="java.lang.String">
+        	<column name="STATUS" length="1">
+        		<comment>状态</comment>
+        	</column>
+        </property> 
+        <property name="complexity" type="java.lang.String">
+        	<column name="COMPLEXITY" length="1">
+        		<comment>难易程度: A:容易 B:一般 C:中等 D:较难 E:困难</comment>
+        	</column>
+        </property>   
+        <set name="setTopicContent"  table="T_WJGL_TOPIC_CONTENT" fetch="subselect" cascade="all" order-by="SERIAL_NUMBER">
+        	<key>
+        		<column name="CONTACT_WEB_TOPIC"  length="32">
+        			<comment>问题ID</comment>
+        		</column>
+        	</key>
+			<one-to-many class="org.pfw.framework.wjgl.domain.TopicContent" />
+        </set>     
+    </class>
+</hibernate-mapping>

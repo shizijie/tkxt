@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.pfw.framework.wjgl.domain.Twjwt" table="T_WJGL_WJWT">
+        <comment>问卷问题</comment>
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="faflid" class="org.pfw.framework.wjgl.domain.Twjfafl" fetch="select">
+            <column name="FAFLID" length="100">
+                <comment>所属分类ID</comment>
+            </column>
+        </many-to-one>
+        <property name="wtlx" type="java.lang.String">
+            <column name="WTLX" length="32">
+                <comment>问题类型:1 单选题,2 判断题,3 多选题,4 填空题</comment>
+            </column>
+        </property>
+        <property name="wtmc" type="java.lang.String">
+            <column name="WTMC" length="500">
+                <comment>问题名称</comment>
+            </column>
+        </property>
+        <property name="wtmcFileName" type="java.lang.String">
+            <column name="wtmcFileName" length="200">
+                <comment>问题图片</comment>
+            </column>
+        </property>
+        <property name="wtfssx" type="java.lang.String">
+            <column name="WTFSSX" length="5">
+                <comment>问题分数上限</comment>
+            </column>
+        </property>
+        
+        <property name="sfyx" type="java.lang.String">
+            <column name="SFYX" length="1">
+                <comment>是否有效;0:无效,1:有效</comment>
+            </column>
+        </property>
+        <property name="jfgzdm" type="java.lang.String">
+            <column name="JFGZDM" length="1">
+                <comment>计分规则代码 1:根据正确答案的分值计分  2:(多选题)全答对得几分 3:(多选题)根据选择的答案正确数，选对几个得几分 4:填空单位计分 5:人工主观计分</comment>
+            </column>
+        </property>        
+        <property name="bz" type="java.lang.String">
+            <column name="BZ" length="1000">
+                <comment>备注</comment>
+            </column>
+        </property>
+        <property name="sxh" type="java.lang.Integer">
+            <column name="SXH" length="3">
+                <comment>顺序号</comment>
+            </column>
+        </property>        
+        <property name="knowledgePoint" type="java.lang.String">
+            <column name="KNOWLEDGEPOINT" length="1000">
+                <comment>知识点</comment>
+            </column>
+        </property>
+        <property name="isorder" type="java.lang.String">
+            <column name="ISORDER" length="10">
+                <comment>顺序</comment>
+            </column>
+        </property>   
+        <set name="hdxlist" inverse="true" table="T_WJGL_WTHDX" fetch="subselect" cascade="all"  order-by="bz">
+        	<key>
+        		<column name="WTID"  length="50"><comment>问题ID</comment></column>
+        	</key>
+			<one-to-many class="org.pfw.framework.wjgl.domain.Twjwthdx" />
+        </set>
+        <property name="nycd" type="java.lang.String">
+        	<column name="nycd" length="6">
+        		<comment>难易程度: A:容易 B:一般 C:中等 D:较难 E:困难</comment>
+        	</column>
+        </property>
+    </class>
+</hibernate-mapping>

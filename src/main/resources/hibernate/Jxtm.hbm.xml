@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.pfw.framework.wjgl.domain.Jxtm" table="T_WJGL_JXTM">
+        <comment>机械制图题目</comment>
+        <id name="id" type="java.lang.String">
+            <column name="ID" length="32" />
+            <generator class="uuid.hex" />
+        </id>
+        <many-to-one name="txid" class="org.pfw.framework.wjgl.domain.Jxtx" fetch="select">
+            <column name="txid" length="100">
+                <comment>所属题型ID</comment>
+            </column>
+        </many-to-one>
+        <property name="tmms" type="java.lang.String">
+            <column name="tmms" length="1000">
+                <comment>题目描述</comment>
+            </column>
+        </property>
+        <property name="tmFileName" type="java.lang.String">
+            <column name="tmFileName" length="500">
+                <comment>题目图片</comment>
+            </column>
+        </property>
+        <many-to-one name="type" class="org.pfw.framework.wjgl.domain.JxType" fetch="select">
+        	<column name="TYPE" length="32">
+        		<comment>类型</comment>
+        	</column>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

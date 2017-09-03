@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.pfw.framework.wjgl.domain.Ttcsjg" table="T_WJGL_TTCSJG">
+        <comment>套题测试结果</comment>
+        <id name="id" type="java.lang.String">
+            <column name="ID" length="32" />
+            <generator class="uuid.hex" />
+        </id>
+        <property name="ztjg" type="java.lang.String">
+            <column name="ztjg" length="1000">
+                <comment>做题结果</comment>
+            </column>
+        </property>
+        <property name="zttime" type="java.lang.String">
+            <column name="zttime" length="20">
+                <comment>做题时间</comment>
+            </column>
+        </property>
+        <property name="ztzql" type="java.lang.String">
+            <column name="ztzql" length="30">
+                <comment>做题正确量</comment>
+            </column>
+        </property>
+        <property name="ztcwl" type="java.lang.String">
+            <column name="ztcwl" length="30">
+                <comment>做题错误量</comment>
+            </column>
+        </property>
+        <property name="ztzl" type="java.lang.String">
+            <column name="ztzl" length="30">
+                <comment>做题总量</comment>
+            </column>
+        </property>
+         <property name="bz1" type="java.lang.String">
+            <column name="bz1" length="30">
+                <comment>备注1</comment>
+            </column>
+        </property>
+         <property name="bz2" type="java.lang.String">
+            <column name="bz2" length="30">
+                <comment>备注2</comment>
+            </column>
+        </property>
+        <many-to-one name="ztr" class="org.pfw.framework.wjgl.domain.Xuesheng" fetch="select">
+            <column name="ztr" length="32">
+                <comment>做题人</comment>
+            </column>
+        </many-to-one>
+        <many-to-one name="ztkm" class="org.pfw.framework.wjgl.domain.Taoti" fetch="select">
+            <column name="ztkm" length="32">
+                <comment>做题科目</comment>
+            </column>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

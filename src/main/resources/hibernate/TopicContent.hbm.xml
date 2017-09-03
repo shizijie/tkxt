@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.pfw.framework.wjgl.domain.TopicContent" table="T_WJGL_TOPIC_CONTENT">
+        <comment>问题内容</comment>
+        <id name="id" type="java.lang.String">
+            <column name="ID" length="32" />
+            <generator class="uuid.hex" />
+        </id>
+        <many-to-one name="contactWebTopic" class="org.pfw.framework.wjgl.domain.ContactWebTopic" fetch="select">
+            <column name="CONTACT_WEB_TOPIC" length="32">
+                <comment>问题ID</comment>
+            </column>
+        </many-to-one>
+        <property name="topicType" type="java.lang.String">
+            <column name="TOPIC_TYPE" length="1">
+                <comment>类型</comment>
+            </column>
+        </property>
+        <property name="serialNumber" type="java.lang.String">
+            <column name="SERIAL_NUMBER" length="2">
+                <comment>序号</comment>
+            </column>
+        </property>
+        <property name="topicPicture" type="java.lang.String">
+            <column name="TOPIC_PICTURE" length="50">
+                <comment>内容图片</comment>
+            </column>
+        </property>
+        <property name="oldPicName" type="java.lang.String">
+            <column name="OLD_PIC_NAME" length="50">
+                <comment>内容名称</comment>
+            </column>
+        </property>
+         <property name="topicText" type="java.lang.String">
+            <column name="topicText">
+                <comment>内容</comment>
+            </column>
+        </property>
+        <property name="rightAnswers" type="java.lang.String">
+            <column name="RIGHT_ANSWERS" length="100">
+                <comment>正确答案</comment>
+            </column>
+        </property>
+        <property name="isOrder" type="java.lang.String">
+            <column name="IS_ORDER" length="1">
+                <comment>是否有序</comment>
+            </column>
+        </property>   
+        <set name="setTopicOptions"  table="T_WJGL_TOPIC_OPTIONS" fetch="subselect" cascade="all"  order-by="SERIAL_NUMBER">
+        	<key>
+        		<column name="TOPIC_CONTENT"  length="32">
+        			<comment>内容ID</comment>
+        		</column>
+        	</key>
+			<one-to-many class="org.pfw.framework.wjgl.domain.TopicOptions" />
+        </set>     
+    </class>
+</hibernate-mapping>

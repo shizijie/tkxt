@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="org.pfw.framework.wjgl.domain.Twjwxsj" table="T_WJGL_WXSJ">
+        <comment>问卷方案分类</comment>
+        <id name="id" type="java.lang.String">
+            <column name="ID" length="32" />
+            <generator class="uuid.hex" />
+        </id>
+        <property name="sjlx" type="java.lang.String">
+            <column name="SJLX" length="1">
+                <comment>时间类型,1(固定时间),2(临时时间)</comment>
+            </column>
+        </property>
+        <property name="zhourq" type="java.lang.String">
+            <column name="ZHOURQ" length="20">
+                <comment>周/日期(开始)</comment>
+            </column>
+        </property>
+        <property name="zhourq2" type="java.lang.String">
+            <column name="ZHOURQ2" length="20">
+                <comment>周/日期(结束)</comment>
+            </column>
+        </property>
+        <property name="kssj" type="java.lang.String">
+            <column name="KSSJ" length="20">
+                <comment>开始时间</comment>
+            </column>
+        </property>
+        <property name="jssj" type="java.lang.String">
+            <column name="JSSJ" length="20">
+                <comment>结束时间</comment>
+            </column>
+        </property>
+        <property name="bz" type="java.lang.String">
+            <column name="BZ" length="20">
+                <comment>备注</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

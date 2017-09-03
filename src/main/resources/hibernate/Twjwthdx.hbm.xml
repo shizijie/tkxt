@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.pfw.framework.wjgl.domain.Twjwthdx" table="T_WJGL_WTHDX">
+        <comment>问题回答项</comment>
+        <id name="id" type="java.lang.Integer">
+            <column name="ID" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="wtid" class="org.pfw.framework.wjgl.domain.Twjwt" fetch="select">
+            <column name="WTID" >
+                <comment>问题ID</comment>
+            </column>
+        </many-to-one>
+        <property name="dadm" type="java.lang.String">
+            <column name="DADM" length="20">
+                <comment>答案代码</comment>
+            </column>
+        </property>
+        <property name="damc" type="java.lang.String">
+            <column name="DAMC" length="200">
+                <comment>答案名称</comment>
+            </column>
+        </property>
+        <property name="damcFileName" type="java.lang.String">
+            <column name="damcFileName" length="200">
+                <comment>答案图片</comment>
+            </column>
+        </property>
+        <property name="sfzqda" type="java.lang.String">
+            <column name="SFZQDA" length="1">
+                <comment>是否正确答案</comment>
+            </column>
+        </property>
+        <property name="dafs" type="java.lang.String">
+            <column name="DAFS" length="5">
+                <comment>答案分数</comment>
+            </column>
+        </property>        
+        <property name="bz" type="java.lang.String">
+            <column name="BZ" length="30">
+                <comment>备注</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

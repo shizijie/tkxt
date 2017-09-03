@@ -1,0 +1,87 @@
+<style>
+.loading-container .loading {
+    background-color: transparent;
+ }
+ .spinner svg {
+      width: 19% !important;
+      height: 85px !important;
+}
+</style>
+<ion-view ng-controller="ctlxCtrl">
+            <ion-header-bar class="bar bar-header bar-positive">
+            	<a class="button ion-ios-arrow-back button-clear" ng-click="back()">&nbsp;返回</a>
+				<h2 class="title">{{title}}错题练习</h2>  
+            </ion-header-bar>  
+            <ion-content on-swipe-left="onSwipeLeft()"  on-swipe-right="onSwipeRight()" >  
+            	<div style="margin:20px 20px 20px 20px">
+			  	<span style="line-height:40px;">
+			  		<font size="4">{{tm.sxh}}{{fuhao}}<font ng-bind-html="tm.wtmc "> </font></font>
+			  		<div ng-if="tm.wtmcFileName!=''&&tm.wtmcFileName!=null"><font  ng-bind-html="'<img src=\'../../userfiles/kjzt/wtimg/'+tm.wtmcFileName+'\'>'"></font></div>
+			  	</span>
+			  	</div>
+			  	<ion-list>
+			  		<div ng-if="tm.wtlx=='单选题'||tm.wtlx=='判断题'">
+			  			<ion-radio  class="item-text-wrap" ng-repeat="sz in tm.hdxlist"  ng-click="xuanze(sz.dadm,sz.sfzqda)" ng-value="sz.dadm" ng-model="da" ng-disabled="gai" ><font size="4">{{sz.dadm}}{{fuhao}}</font><font ng-bind-html="sz.damc"> </font>
+			  				<div ng-if="sz.damcFileName!=''&&sz.damcFileName!=null"><font ng-bind-html="'<img src=\'../../userfiles/kjzt/daimg/'+sz.damcFileName+'\'>'"></font></div>
+			  			</ion-radio>
+			  		</div>
+			  		<div ng-if="tm.wtlx=='多选题'"  >
+			  			<ion-checkbox  class="item-text-wrap" ng-repeat="sz in tm.hdxlist"  ng-click="updateSelection($event,tm.sxh,sz.id)"  ng-checked="isChecked(tm.sxh,sz.id)" ng-value="sz.dadm" ng-model="da" ng-disabled="tm.first==2" ><font size="4">{{sz.dadm}}{{fuhao}}</font><font ng-bind-html="sz.damc"> </font>
+			  				<div ng-if="sz.damcFileName!=''&&sz.damcFileName!=null"><font ng-bind-html="'<img src=\'../../userfiles/kjzt/daimg/'+sz.damcFileName+'\'>'"></font></div>
+			  			</ion-checkbox>
+			  			<button class="button button-block button-positive" ng-click="doSave(tm.sxh)" ng-if="tm.first!=2">提交答案</button>
+			  		</div>
+			  		<div ng-if="tm.wtlx=='填空题'" class="list" >
+			  			<label class="item item-input" ng-repeat="sz in tm.hdxlist">
+			  				<span class="input-label">{{sz.dadm}}</span>
+			  				<input type="text"   id="{{sz.id}}"  ng-disabled="tm.first==2"  value="{{sz.inputValue}}">
+			  			</label>
+			  			<button class="button button-block button-positive" ng-click="doSave(tm.sxh)"  ng-if="tm.first!=2">提交答案</button>
+			  		</div>
+			  	</ion-list>
+			  	<div style="margin:20px 20px 20px 20px">
+			  		<span><font size="5" color="red">{{cw}}</font><font size="5" color="green">{{zq}}</font></span>
+			  		<br>
+			  		<div style="margin-top:15px"><font size="3">{{bz}}</font></div>
+			  	</div>
+            </ion-content> 
+            <ion-footer-bar class="tabs tabs-light tabs-icon-left tabs-color-positive">
+            	  <a class="tab-item active" ng-click="del()">
+			        <i class="icon ion-trash-a" style=" font-size: 0px;"></i>
+			        	<font size="3">删除</font>
+			      </a>
+			      <a class="tab-item active">
+			        <i class="icon ion-checkmark" style=" font-size: 0px;"></i>
+			        	<font size="3">{{zqsl}}</font>
+			      </a>
+			      <a class="tab-item active">
+			        <i class="icon ion-close" style=" font-size: 0px;"></i>
+			        	<font size="3">{{cwsl}}</font>
+			      </a>
+			      <a class="tab-item active"  ng-click="showm()">
+			        <i class="icon ion-navicon-round" style=" font-size: 0px;"></i>
+			        	<font size="3">{{tm.sxh}}/{{num}}</font>
+			      </a>
+			</ion-footer-bar> 
+	 <script id="templates/modal.html" type="text/ng-template">
+      <ion-modal-view>
+        <ion-header-bar class="bar bar-header bar-positive">
+          <h1 class="title">{{title}}题号</h1>
+          <button class="button button-clear button-primary"  ng-click="modal.hide()"><i class="icon ion-android-close"></i></button>
+        </ion-header-bar>
+        <ion-content>
+			 <div class="row" ng-repeat="xh in zushu">
+				<div class="col col-10" id="{{xhs+10*(xh-1)}}" ng-style="sty{{xhs+10*(xh-1)}}" ng-class="{'calm-bg':xhs+10*(xh-1)==1}" ng-repeat="xhs in shuzi" ng-click="tminfo(xhs+10*(xh-1))">{{xhs+10*(xh-1)}}</div>
+			 </div>
+			 <div class="row">
+				<div class="col col-10" id="{{sys}}"  ng-style="sty{{sys}}" ng-repeat="sys in sytm" ng-click="tminfo(sys)">{{sys}}</div>
+			 </div>
+			 <br/>
+			 <div>
+				<font>{{result}}</font>
+			 </div>
+        </ion-content>
+      </ion-modal-view>
+    </script>
+  
+</ion-view>

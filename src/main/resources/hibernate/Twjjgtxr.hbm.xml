@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.pfw.framework.wjgl.domain.Twjjgtxr" table="T_WJGL_WJJGTXR">
+        <comment>填报结果表</comment>
+        <id name="id" type="java.lang.String">
+            <column name="ID" length="32" />
+            <generator class="uuid.hex" />
+        </id>
+        <property name="txr" type="java.lang.String">
+            <column name="TXR" length="50">
+                <comment>填写人</comment>
+            </column>
+        </property>
+        <property name="sjh" type="java.lang.String">
+            <column name="SJH" length="50">
+                <comment>手机号</comment>
+            </column>
+        </property>
+        <property name="yxdz" type="java.lang.String">
+             <column name="YXDZ" length="50">
+                <comment>邮箱地址</comment>
+            </column>
+        </property>
+        <property name="grade" type="java.lang.String">
+            <column name="GRADE" length="10">
+                <comment>分数</comment>
+            </column>
+        </property>
+        <property name="dxsj" type="java.lang.String">
+            <column name="DXSJ" length="50">
+                <comment>填写时间</comment>
+            </column>
+        </property>
+        <property name="ipdz" type="java.lang.String">
+            <column name="IPDZ" length="50">
+                <comment>IP地址</comment>
+            </column>
+        </property>
+        <property name="tmzs" type="java.lang.Integer">
+            <column name="TMZS" >
+                <comment>题目总数</comment>
+            </column>
+        </property>
+        <property name="zqsl" type="java.lang.Integer">
+            <column name="ZQSL" >
+                <comment>正确题数</comment>
+            </column>
+        </property>
+        <property name="cwsl" type="java.lang.Integer">
+            <column name="CWSL" >
+                <comment>题目总数</comment>
+            </column>
+        </property>
+        
+        <many-to-one name="faflid" class="org.pfw.framework.wjgl.domain.Twjfafl" fetch="select">
+            <column name="FAFLID">
+                <comment>做题分类ID</comment>
+            </column>
+        </many-to-one>
+        
+        <many-to-one name="csrw" class="org.pfw.framework.wjgl.domain.Csrw" fetch="select">
+            <column name="CSRWID">
+                <comment>测试任务ID</comment>
+            </column>
+        </many-to-one>
+        <many-to-one name="xuesheng" class="org.pfw.framework.wjgl.domain.Xuesheng" fetch="select">
+            <column name="xuesheng" length="32">
+                <comment>学生</comment>
+            </column>
+        </many-to-one>
+        
+        <set name="wjjglist" inverse="true"  lazy="false" cascade="all" table="T_WJGL_WJJG" order-by="bz">
+            <key>
+                <column name="TXRID" length="32">
+                    <comment>填写人ID</comment>
+                </column>
+            </key>
+            <one-to-many class="org.pfw.framework.wjgl.domain.Twjjg" />
+        </set>
+    </class>
+</hibernate-mapping>

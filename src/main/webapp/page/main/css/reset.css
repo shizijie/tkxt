@@ -1,0 +1,52 @@
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+input,label,select,button,img {
+	vertical-align: middle;
+}
+
+img {
+	border: 0;
+}
+
+h1,h2,h3,h4,h5,h6,h7,h8,h9 {
+	font-weight: normal;
+}
+
+i {
+	font-style: normal;
+}
+
+.clear {
+	display: block;
+	clear: both;
+	content: '.';
+	visibility: hidden;
+	height: 0;
+	zoom: 1;
+	overflow: hidden;
+}
+
+.clear:after {
+	display: block;
+	content: '';
+	height: 0;
+	clear: both;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+a,a:visited {
+	color: #4a4a4a;
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}

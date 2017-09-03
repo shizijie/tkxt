@@ -1,0 +1,26 @@
+<style>
+.item-icon-right .icon {
+	font-size: 20px
+}
+</style>
+<ion-view view-title="章节练习" ng-controller="zjtestCtrl">
+	<ion-header-bar class="bar bar-header bar-positive">
+		<h2 class="title">章节练习</h2>
+	</ion-header-bar>
+	<ion-content>
+		<div class="content" >
+			<div class="item item-input item-select" >
+			    <div class="input-label">
+			      选择课程
+			    </div>
+			    <select ng-change="change(x)" ng-model="x">
+			    	<option value="0">请点击选择</option>
+			    	<option ng-repeat="kc in kclist" value="{{kc.id}}">{{kc.flmc}}</option>
+			    </select>
+			</div>
+			<div class="list" >
+				<div class="item item-icon-right" ng-repeat="zj in kc" ng-click="zjinfo(zj.id,zj.flmc)">{{zj.flmc}}<i class="icon" style="font-size:12px">{{zj.bz}}</i></div>
+			</div>
+		</div>
+	</ion-content>
+</ion-view>

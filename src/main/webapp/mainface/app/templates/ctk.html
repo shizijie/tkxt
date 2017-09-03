@@ -1,0 +1,17 @@
+<style>
+.item-icon-right .icon {
+	font-size: 20px
+}
+</style>
+<ion-view view-title="错题集" ng-controller="zjtestCtrl">
+	<ion-header-bar class="bar bar-header bar-positive">
+		<h2 class="title">错题库</h2>  
+	</ion-header-bar>
+	<ion-content>
+		<div class="content" >
+			<div class="list" >
+				<div class="item item-icon-right" ng-repeat="kc in kclist" ng-click="selctjkc(kc.id,kc.flmc,kc.bz)" >{{kc.flmc}}<i class="icon" style="font-size:12px">{{kc.bz}}</i></div>
+			</div>
+		</div>
+	</ion-content>
+</ion-view>

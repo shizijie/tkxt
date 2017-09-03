@@ -1,0 +1,13 @@
+<ion-view ng-controller="meCtrl">
+	<ion-header-bar class="bar bar-header bar-positive">
+		<h2 class="title">我</h2>  
+	</ion-header-bar>
+	<ion-content>
+		<div style="text-align: center;margin-top:50px"><i class="icon ion-person positive" style="font-size:100px;"></i>
+		<br/>{{name}}
+		</div>
+		<div class="padding-left padding-right">
+            <input type="button" class="button button-block button-positive" ng-click="exit()"  value="安全退出">
+          </div>
+	</ion-content>
+</ion-view>

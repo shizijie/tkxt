@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="org.pfw.framework.wjgl.domain.Twjlsyj" table="T_WJGL_LSYJ">
+        <comment>问卷方案分类</comment>
+        <id name="id" type="java.lang.String">
+            <column name="ID" length="32" />
+            <generator class="uuid.hex" />
+        </id>
+        <property name="zh" type="java.lang.String">
+            <column name="zh" length="20">
+                <comment>帐号</comment>
+            </column>
+        </property>
+        <property name="xm" type="java.lang.String">
+            <column name="xm" length="20">
+                <comment>姓名</comment>
+            </column>
+        </property>
+        <property name="mm" type="java.lang.String">
+            <column name="mm" length="20">
+                <comment>密码</comment>
+            </column>
+        </property>
+        <property name="bz" type="java.lang.String">
+            <column name="BZ" length="20">
+                <comment>备注</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

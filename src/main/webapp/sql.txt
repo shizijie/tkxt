@@ -1,0 +1,7 @@
+alter table [tkxt].[dbo].[T_WJGL_CSRW] alter column[TEST_STU] varchar(MAX)
+
+
+alter table [tkxt].[dbo].[T_WJGL_CONTACT_WEB_TOPIC] alter column [TEXT_FIELD] varchar(max)
+
+
+alter table [tkxt].[dbo].[T_WJGL_TOPIC_CONTENT] alter column [topicText] varchar(max)

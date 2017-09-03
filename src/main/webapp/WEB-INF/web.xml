@@ -1,0 +1,408 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<display-name>pfw</display-name>
+	
+	<!-- Spring ApplicationContext配置文件的路径,可使用通配符,多个路径用,号分隔
+		此参数用于后面的Spring Context Loader
+-->
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath*:/spring/applicationContext*.xml</param-value>
+	</context-param>
+	
+	<!-- 
+	<filter>  
+        <filter-name>CORS</filter-name>  
+        <filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>  
+        <init-param>  
+            <param-name>cors.allowOrigin</param-name> 
+            <param-value>*</param-value> 
+        </init-param>  
+        <init-param>  
+            <param-name>cors.supportedMethods</param-name> 
+            <param-value>GET, POST, HEAD, PUT, DELETE</param-value> 
+        </init-param>  
+        <init-param>  
+            <param-name>cors.supportedHeaders</param-name> 
+            <param-value>Accept, Origin, X-Requested-With, Content-Type, Last-Modified</param-value> 
+        </init-param>  
+        <init-param>  
+            <param-name>cors.exposedHeaders</param-name> 
+            <param-value>Set-Cookie</param-value> 
+        </init-param>  
+        <init-param>  
+            <param-name>cors.supportsCredentials</param-name> 
+            <param-value>true</param-value> 
+        </init-param>  
+    </filter>  
+    <filter-mapping>  
+        <filter-name>CORS</filter-name>  
+        <url-pattern>/*</url-pattern>  
+   </filter-mapping>
+	-->
+	
+	<!-- Filter 定义  -->
+	<!-- Character Encoding filter -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<!-- EHCACHE PAGE-->
+	<filter>
+		<filter-name>SimplePageCachingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	<!-- Hibernate Open Session In View filter-->
+	<filter>
+		<filter-name>hibernateOpenSessionInViewFilter</filter-name>
+		<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+		<!--<init-param>
+			<param-name>singleSession</param-name>
+			<param-value>true</param-value>
+		</init-param>-->
+		<init-param>
+			<param-name>sessionFactoryBeanName</param-name>
+			<param-value>sessionFactory</param-value>
+		</init-param>
+	</filter>
+	<!--<filter>
+		<filter-name>hibernateOpenSessionInViewFilter_workflow</filter-name>
+		<filter-class>org.springframework.orm.hibernate3.support.OpenSessionInViewFilter</filter-class>
+		<init-param>
+			<param-name>sessionFactoryBeanName</param-name>
+			<param-value>wf_sessionFactory</param-value>
+		</init-param>
+	</filter>-->
+	
+	<!-- 与公司cas认证集成时打开 -->
+	
+	<filter>
+		<filter-name>httpSessionContextIntegrationFilter</filter-name>
+			<filter-class>org.springframework.security.util.FilterToBeanProxy</filter-class>
+		<init-param>
+		<param-name>targetBean</param-name>
+			<param-value>httpSessionContextIntegrationFilter</param-value>
+		</init-param>
+	</filter>
+	<!---->
+	
+	<!-- SpringSecurity filter-->
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+	
+	<!-- Struts2 filter -->
+	<!-- yxh cancel  to update to struts2.3.16.1
+	<filter>
+		<filter-name>struts2CleanupFilter</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ActionContextCleanUp</filter-class>
+	</filter>
+	<filter>
+		<filter-name>struts2Filter</filter-name>
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+	</filter>
+	-->
+	<filter>
+        <filter-name>struts2</filter-name>
+        <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+       	<init-param>
+			<param-name>packages</param-name>
+			<param-value>macro</param-value>
+		</init-param>
+    </filter>
+	<!-- JCaptcha filter -->
+	<filter>
+		<filter-name>jcaptchaFilter</filter-name>
+		<filter-class>org.pfw.framework.filter.JCaptchaFilter</filter-class>
+		<init-param>
+			<param-name>failureUrl</param-name>
+			<param-value>/login.action?error=2</param-value>
+		</init-param>
+		<!-- 用于功能测试的设置54321自动通过验证码校验,在生产环境部署时移除该参数或将值设为invalid -->
+		  
+		<init-param>
+			<param-name>autoPassValue</param-name>
+			<param-value>invalid</param-value>
+		</init-param>
+		
+	</filter>
+	<!-- Cache Control Header Filter -->
+	<filter>
+		<filter-name>cacheControlHeaderFilter</filter-name>
+		<filter-class>org.pfw.framework.filter.CacheControlHeaderFilter</filter-class>
+		<init-param>
+  			<param-name>expiresSeconds</param-name>
+  			<param-value>0</param-value>
+  			<!--<param-value>31536000</param-value>-->
+  		</init-param>
+  	</filter>
+  	<filter>
+	<filter-name> FileUploadFilter </filter-name>   
+		<filter-class>com.ckfinder.connector.FileUploadFilter</filter-class>  
+            <init-param>  
+                <param-name>sessionCookieName</param-name>  
+                <param-value>JSESSIONID</param-value >  
+            </init-param>  
+            <init-param>  
+                <param-name>sessionParameterName</param-name>  
+                <param-value>jsessionid</param-value>  
+            </init-param>  
+	</filter>    		
+
+
+	<!-- 与公司cas认证集成时打开 -->
+	
+	<filter-mapping>
+		<filter-name>httpSessionContextIntegrationFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>  
+        <filter-name> FileUploadFilter </filter-name >  
+        <url-pattern>/ckfinder/core/connector/java/connector.java</url-pattern >  
+	</filter-mapping>	
+	<!---->
+	
+	<!-- Filter 映射 -->
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- start:shop-index ehcache -->
+	<!--<filter-mapping>
+		<filter-name>SimplePageCachingFilter</filter-name>
+		<url-pattern>/shop/index!index.action</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>-->
+	<!--<filter-mapping>
+		<filter-name>SimplePageCachingFilter</filter-name>
+		<url-pattern>/system/file!showImage.action</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>-->
+	<!--<filter-mapping>
+		<filter-name>SimplePageCachingFilter</filter-name>
+		<url-pattern>/shop/market!searchDetail.action</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>-->
+	<!--<filter-mapping>
+		<filter-name>SimplePageCachingFilter</filter-name>
+		<url-pattern>/shop/market!show.action</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>-->
+	<!--<filter-mapping>
+		<filter-name>SimplePageCachingFilter</filter-name>
+		<url-pattern>/shop/cms_show!list.action</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>-->
+	<!-- end:shop-index ehcache -->
+	<filter-mapping>
+		<filter-name>cacheControlHeaderFilter</filter-name>
+		<url-pattern>/system/file!showImage.action</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>hibernateOpenSessionInViewFilter</filter-name>
+		<url-pattern>*.action</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	<!--<filter-mapping>
+		<filter-name>hibernateOpenSessionInViewFilter_workflow</filter-name>
+		<url-pattern>*.action</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>-->
+	
+
+	<!-- jcaptcha图片生成URL. -->
+	<filter-mapping>
+		<filter-name>jcaptchaFilter</filter-name>
+		<url-pattern>/jcaptcha.jpg</url-pattern>
+	</filter-mapping>
+	
+	<!-- jcaptcha登录表单处理URL.
+	             必须放在springSecurityFilter的filter-mapping定义之前
+	-->
+	 
+	<filter-mapping>
+		<filter-name>jcaptchaFilter</filter-name>
+		<url-pattern>/j_spring_security_check</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>jcaptchaFilter</filter-name>
+		<url-pattern>*.action</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	<!-- yxh cancel to update to struts2.3.16.1
+	<filter-mapping>
+		<filter-name>struts2CleanupFilter</filter-name>
+		<url-pattern>*.action</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>struts2Filter</filter-name>
+		<url-pattern>*.action</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	-->
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>*.action</url-pattern>
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>*.jsp</url-pattern>
+	</filter-mapping> 
+	<filter-mapping>
+		<filter-name>cacheControlHeaderFilter</filter-name>
+		<url-pattern>/scripts/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>cacheControlHeaderFilter</filter-name>
+		<url-pattern>/css/*</url-pattern>
+	</filter-mapping>
+
+
+	<!--Spring的ApplicationContext 载入 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<!--<listener>
+		<listener-class>org.springframework.security.ui.session.HttpSessionEventPublisher</listener-class>
+	</listener>-->
+	<listener>
+		<listener-class>org.pfw.framework.listener.PfwHttpSessionEventPublisher</listener-class>
+	</listener>
+
+
+	
+	
+	<!-- Spring 刷新Introspector防止内存泄露 -->
+	<listener>
+		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener>
+
+	<!-- Spring webservice -->
+	<listener>
+		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener>
+
+	<!-- Spring webservice -->
+	<servlet>
+		<servlet-name>CXFService</servlet-name>
+		<servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+	</servlet>
+
+
+	<!-- JspTaglibs -->
+	 <servlet> 
+	    <servlet-name>JSPSupportServlet</servlet-name>
+	    <servlet-class>org.apache.struts2.views.JspSupportServlet</servlet-class>
+	    <load-on-startup>1</load-on-startup>
+	 </servlet> 
+	<servlet>
+		<servlet-name>pushlet</servlet-name>
+		<servlet-class>nl.justobjects.pushlet.servlet.Pushlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>
+		<servlet-name>Connector</servlet-name>
+		<servlet-class>net.fckeditor.connector.ConnectorServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet>  
+	    <servlet-name> ConnectorServlet </servlet-name>  
+	    <servlet-class > com.ckfinder.connector.ConnectorServlet </servlet-class>  
+	    <init-param>  
+	         <param-name> XMLConfig </param-name>  
+	         <param-value> /WEB-INF/config.xml </param-value>  
+	     </init-param>  
+	     <init-param>  
+	           <param-name> debug </param-name>  
+	           <param-value> false </param-value>  
+	      </init-param>  
+	 	 <load-on-startup> 1 </load-on-startup>  
+    </servlet>
+	
+
+	<!-- Spring webservice -->
+	<servlet-mapping>
+		<servlet-name>CXFService</servlet-name>
+		<url-pattern>/pfwws/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>pushlet</servlet-name>
+		<url-pattern>/pushlet.srv</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>Connector</servlet-name>
+		<url-pattern>/fckeditor/editor/filemanager/connectors/*</url-pattern>
+	</servlet-mapping>	
+	<servlet-mapping>  
+ 	<servlet-name> ConnectorServlet </servlet-name>  
+ 	<url-pattern >/ckfinder/core/connector/java/connector.java</url-pattern >  
+ 	</servlet-mapping>
+	
+
+	<!-- session超时定义,单位为分钟 -->
+	<session-config>
+		<session-timeout>480</session-timeout>
+	</session-config>
+
+ 
+ 	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	
+	<!-- 出错页面定义 -->
+	<error-page>
+		<exception-type>java.lang.Throwable</exception-type>
+		<location>/common/500.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/common/500.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>404</error-code>
+		<location>/common/404.jsp</location>
+	</error-page>
+	<error-page>
+		<error-code>403</error-code>
+		<location>/common/403.jsp</location>
+	</error-page>
+		
+</web-app>

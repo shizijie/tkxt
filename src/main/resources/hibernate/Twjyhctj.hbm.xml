@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.pfw.framework.wjgl.domain.Twjyhctj" table="T_WJGL_YHCTJ">
+        <comment>用户错题集</comment>
+        <id name="id" type="java.lang.Integer">
+            <column name="ID"/>
+            <generator class="native" />
+        </id>
+        <many-to-one name="user" class="org.pfw.framework.domain.security.User" fetch="select">
+            <column name="userid">
+                <comment>用户</comment>
+            </column>
+        </many-to-one>
+        <many-to-one name="cwwt" class="org.pfw.framework.wjgl.domain.Twjwt" fetch="select">
+            <column name="wtid">
+                <comment>错题</comment>
+            </column>
+        </many-to-one>
+        <property name="bz" type="java.lang.String">
+            <column name="bz" length="20">
+                <comment>备注</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

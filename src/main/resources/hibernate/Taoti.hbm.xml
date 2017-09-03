@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.pfw.framework.wjgl.domain.Taoti" table="T_WJGL_TAOTI">
+        <comment>套题信息</comment>
+        <id name="id" type="java.lang.String">
+            <column name="ID" length="32" />
+            <generator class="uuid.hex" />
+        </id>
+        <property name="ttmc" type="java.lang.String">
+            <column name="ttmc" length="100">
+                <comment>套题名称</comment>
+            </column>
+        </property>
+        <property name="dxtsl" type="java.lang.String">
+            <column name="dxtsl" length="10">
+                <comment>单选题数量</comment>
+            </column>
+        </property>
+        <property name="pdtsl" type="java.lang.String">
+            <column name="pdtsl" length="10">
+                <comment>判断题数量</comment>
+            </column>
+        </property>
+        <property name="remark" type="java.lang.String">
+            <column name="REMARK" length="1000">
+                <comment>备注</comment>
+            </column>
+        </property>
+        <many-to-one name="fafl" class="org.pfw.framework.wjgl.domain.Twjfafl" fetch="select">
+            <column name="faflid" length="32">
+                <comment>课程</comment>
+            </column>
+        </many-to-one>
+        <set name="tmlist" table="T_WJGL_TAOTITM" fetch="subselect" order-by="TM_ID" lazy="false">
+          	<comment>任务题目</comment>
+          	<key>
+          		<column name="TAOTO_ID">
+          			<comment>任务ID</comment>
+          		</column>
+          	</key>
+          	<many-to-many class="org.pfw.framework.wjgl.domain.Twjwt">
+          		<column name="TM_ID">
+          			<comment>题目ID</comment>
+          		</column>
+          	</many-to-many>
+        </set>
+         
+    </class>
+</hibernate-mapping>

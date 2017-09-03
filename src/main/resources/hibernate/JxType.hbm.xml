@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="org.pfw.framework.wjgl.domain.JxType" table="T_WJGL_JXTYPE">
+		<comment>机械题库类别</comment>
+		<id name="id" type="java.lang.String">
+			<column name="ID"></column>
+			<generator class="uuid.hex"></generator>
+		</id>
+		<property name="typeName" type="java.lang.String">
+			<column name="TYPENAME" length="100">
+				<comment>类别名称</comment>
+			</column>
+		</property>
+		<property name="remark" type="java.lang.String">
+			<column name="REMARK" length="100">
+				<comment>备注</comment>
+			</column>
+		</property>
+		<many-to-one name="fparent" class="org.pfw.framework.wjgl.domain.JxType" fetch="select">
+			<column name="FPARENT" length="100">
+				<comment>父节点</comment>
+			</column>
+		</many-to-one>
+		<set name="children" inverse="true"  order-by="typeName asc">
+			<key>
+				<column name="fparent" length="100">
+					<comment>父类id</comment>
+				</column>
+			</key>
+			<one-to-many class="org.pfw.framework.wjgl.domain.JxType"/>
+		</set>
+		<property name="jdtype" type="java.lang.String">
+			<column name="JDTYPE" length="10">
+				<comment>节点</comment>
+			</column>
+		</property>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.pfw.framework.wjgl.domain.Jxzj" table="T_WJGL_JXZJ">
+        <comment>机械制图组卷</comment>
+        <id name="id" type="java.lang.String">
+            <column name="ID" length="32" />
+            <generator class="uuid.hex" />
+        </id>
+        <property name="zjmc" type="java.lang.String">
+            <column name="zjmc" length="500">
+                <comment>组卷名称</comment>
+            </column>
+        </property>
+        <property name="zjxx" type="java.lang.String">
+            <column name="zjxx" length="1000">
+                <comment>组卷信息</comment>
+            </column>
+        </property>
+        <property name="zjtype" type="java.lang.String">
+            <column name="JZTYPE" length="100">
+                <comment>组卷类型</comment>
+            </column>
+        </property>
+        <property name="xn" type="java.lang.String">
+            <column name="XN" length="100">
+                <comment>学年</comment>
+            </column>
+        </property>
+        <property name="xq" type="java.lang.String">
+            <column name="XQ" length="100">
+                <comment>学期</comment>
+            </column>
+        </property>
+        <property name="exam" type="java.lang.String">
+            <column name="EXAM" length="1000">
+                <comment>考试类型</comment>
+            </column>
+        </property>
+        <many-to-one name="type" class="org.pfw.framework.wjgl.domain.JxType" fetch="select">
+        	<column name="TYPE" length="32">
+        		<comment>类型</comment>
+        	</column>
+        </many-to-one>
+        <set name="tmlist" table="T_WJGL_JXZJTM" fetch="subselect" order-by="TM_ID" lazy="false">
+          	<comment>组卷题目</comment>
+          	<key>
+          		<column name="ZJ_ID">
+          			<comment>组卷ID</comment>
+          		</column>
+          	</key>
+          	<many-to-many class="org.pfw.framework.wjgl.domain.Jxtm">
+          		<column name="TM_ID">
+          			<comment>题目ID</comment>
+          		</column>
+          	</many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>

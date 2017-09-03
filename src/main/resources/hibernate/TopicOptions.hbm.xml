@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.pfw.framework.wjgl.domain.TopicOptions" table="T_WJGL_TOPIC_OPTIONS">
+        <comment>内容回答项</comment>
+        <id name="id" type="java.lang.String">
+            <column name="ID" length="32" />
+            <generator class="uuid.hex" />
+        </id>
+        <many-to-one name="topicContent" class="org.pfw.framework.wjgl.domain.TopicContent" fetch="select">
+            <column name="TOPIC_CONTENT" length="32">
+                <comment>问题ID</comment>
+            </column>
+        </many-to-one>
+        <property name="serialNumber" type="java.lang.String">
+            <column name="SERIAL_NUMBER" length="2">
+                <comment>序号</comment>
+            </column>
+        </property>
+        <property name="oldPicName" type="java.lang.String">
+            <column name="OLD_PIC_NAME" length="50">
+                <comment>内容名称</comment>
+            </column>
+        </property>
+        <property name="optionContent" type="java.lang.String">
+            <column name="OPTION_CONTENT" length="200">
+                <comment>选项内容</comment>
+            </column>
+        </property>
+        <property name="optionPicture" type="java.lang.String">
+            <column name="OPTION_PICTURE" length="50">
+                <comment>选项图片</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,13 @@
+.home {text-align:center;}
+
+.list-item-title
+{
+	font-weight:bold;
+	color:#444;
+}
+.list-item-narrative
+{
+	padding-top:10px;
+	font-size:70%;
+	color:#888;
+}

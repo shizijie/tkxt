@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+
+    <class name="org.pfw.framework.wjgl.domain.Twjfafl" table="T_WJGL_WJFAFL">
+        <comment>问题分类</comment>
+        <id name="id" type="java.lang.Integer">
+            <column name="ID"  />
+            <generator class="native" />
+        </id>
+        <property name="sxh" type="java.lang.String">
+            <column name="SXH" length="50">
+                <comment>顺序号</comment>
+            </column>
+        </property>
+        <property name="flmc" type="java.lang.String">
+            <column name="FLMC" length="300">
+                <comment>分类名称</comment>
+            </column>
+        </property>
+        <property name="sfyx" type="java.lang.String">
+            <column name="SFYX" length="50">
+                <comment>是否有效;0:无效,1:有效</comment>
+            </column>
+        </property>
+        <property name="bz" type="java.lang.String">
+            <column name="BZ" length="300">
+                <comment>备注</comment>
+            </column>
+        </property>
+        <set name="wtlist"  table="T_WJGL_WJWT" fetch="subselect"  order-by="sxh,wtmc" lazy="false">
+        	<key>
+        		<column name="faflid"  length="50"><comment>问题ID</comment></column>
+        	</key>
+			<one-to-many class="org.pfw.framework.wjgl.domain.Twjwt" />
+        </set>
+        
+        <many-to-one name="fparent" class="org.pfw.framework.wjgl.domain.Twjfafl"  fetch="select" >
+            <column name="fparent" length="50"  >
+            	<comment>父类</comment>
+            </column>
+        </many-to-one>
+        
+        <set name="children" inverse="true" order-by="xssx">
+            <key>
+                <column name="fparent" length="50">
+                    <comment>父类ID</comment>
+                </column>
+            </key>
+            <one-to-many class="org.pfw.framework.wjgl.domain.Twjfafl" />
+        </set>
+        
+        <property name="xssx" type="java.lang.String">
+            <column name="xssx" length="50">
+                <comment>显示顺序</comment>
+            </column>
+        </property>
+         <property name="tiliang" type="java.lang.String">
+            <column name="tiliang" length="50">
+                <comment>题型:题量:分值/判断题:20:1</comment>
+            </column>
+        </property>
+        
+        <property name="jdtype" type="java.lang.String">
+            <column name="jdtype" length="50">
+                <comment>节点类型:1:课程, 2:章节, 3:知识点</comment>
+            </column>
+        </property>
+        
+    </class>
+</hibernate-mapping>

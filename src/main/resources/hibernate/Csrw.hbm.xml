@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.pfw.framework.wjgl.domain.Csrw" table="T_WJGL_CSRW">
+        <comment>测试任务</comment>
+        <id name="id" type="java.lang.String">
+            <column name="ID" length="32" />
+            <generator class="uuid.hex" />
+        </id>
+        <property name="rwmc" type="java.lang.String">
+            <column name="rwmc" length="100">
+                <comment>任务名称</comment>
+            </column>
+        </property>
+        <property name="kssj" type="java.lang.String">
+            <column name="kssj" length="50">
+                <comment>开始时间</comment>
+            </column>
+        </property>
+        <property name="jssj" type="java.lang.String">
+            <column name="jssj" length="50">
+                <comment>结束时间</comment>
+            </column>
+        </property>
+        <property name="kssc" type="java.lang.String">
+            <column name="kssc" length="50">
+                <comment>考试时长</comment>
+            </column>
+        </property>
+        <property name="ksbj" type="java.lang.String">
+            <column name="ksbj">
+                <comment>考试班级</comment>
+            </column>
+        </property>
+        <property name="testStu" type="java.lang.String">
+            <column name="TEST_STU">
+                <comment>考试学生</comment>
+            </column>
+        </property>
+        <property name="ksbjmcs" type="java.lang.String">
+            <column name="ksbjmcs">
+                <comment>考试班级名称</comment>
+            </column>
+        </property>
+        <property name="zjxx" type="java.lang.String">
+            <column name="zjxx" length="1000">
+                <comment>组卷信息</comment>
+            </column>
+        </property>
+        <property name="jxInfo" type="java.lang.String">
+            <column name="JX_INFO" length="1000">
+                <comment>机械组卷信息</comment>
+            </column>
+        </property>
+        <property name="jxScore" type="java.lang.String">
+            <column name="JX_SCORE" length="1000">
+                <comment>机械分值</comment>
+            </column>
+        </property>
+        <property name="score" type="java.lang.String">
+            <column name="SCORE" length="1000">
+                <comment>分值</comment>
+            </column>
+        </property>
+        <property name="topicInfo" type="java.lang.String">
+            <column name="TOPIC_INFO" length="1000">
+                <comment>接触网组卷信息</comment>
+            </column>
+        </property>
+        <property name="topicScore" type="java.lang.String">
+            <column name="TOPIC_SCORE" length="1000">
+                <comment>接触网分值</comment>
+            </column>
+        </property>
+        <set name="tmlist" table="T_WJGL_RWTM" fetch="subselect" order-by="TM_ID" lazy="false">
+          	<comment>任务题目</comment>
+          	<key>
+          		<column name="RW_ID">
+          			<comment>任务ID</comment>
+          		</column>
+          	</key>
+          	<many-to-many class="org.pfw.framework.wjgl.domain.Twjwt">
+          		<column name="TM_ID">
+          			<comment>题目ID</comment>
+          		</column>
+          	</many-to-many>
+        </set>
+        <set name="setJxtm" table="T_WJGL_CSRW_JXTM" fetch="subselect" order-by="JXTM_ID" lazy="false">
+          	<comment>机械制图题目</comment>
+          	<key>
+          		<column name="CSRW_ID">
+          			<comment>任务ID</comment>
+          		</column>
+          	</key>
+          	<many-to-many class="org.pfw.framework.wjgl.domain.Jxtm">
+          		<column name="JXTM_ID">
+          			<comment>题目ID</comment>
+          		</column>
+          	</many-to-many>
+        </set>
+        <set name="setContactWebTopic" table="T_WJGL_CSRW_TOPIC" fetch="subselect" order-by="TOPIC_ID" lazy="false">
+          	<comment>接触网题目</comment>
+          	<key>
+          		<column name="CSRW_ID">
+          			<comment>任务ID</comment>
+          		</column>
+          	</key>
+          	<many-to-many class="org.pfw.framework.wjgl.domain.ContactWebTopic">
+          		<column name="TOPIC_ID">
+          			<comment>题目ID</comment>
+          		</column>
+          	</many-to-many>
+        </set>
+        <many-to-one name="fafl" class="org.pfw.framework.wjgl.domain.Twjfafl" fetch="select">
+            <column name="faflid" length="32">
+                <comment>课程</comment>
+            </column>
+        </many-to-one> 
+    </class>
+</hibernate-mapping>

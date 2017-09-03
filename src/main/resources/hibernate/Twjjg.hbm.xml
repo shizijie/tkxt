@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="org.pfw.framework.wjgl.domain.Twjjg" table="T_WJGL_WJJG">
+        <comment>填报结果表</comment>
+        <id name="id" type="java.lang.String">
+            <column name="ID" length="32" />
+            <generator class="uuid.hex" />
+        </id>
+        <many-to-one name="wtid" class="org.pfw.framework.wjgl.domain.Twjwt" fetch="select">
+            <column name="WTID" length="32">
+                <comment>问题ID</comment>
+            </column>
+        </many-to-one>
+        <many-to-one name="txrid" class="org.pfw.framework.wjgl.domain.Twjjgtxr" fetch="select">
+            <column name="TXRID" length="32">
+                <comment>填写人ID</comment>
+            </column>
+        </many-to-one>
+         <many-to-one name="contactWebTopic" class="org.pfw.framework.wjgl.domain.ContactWebTopic" fetch="select">
+            <column name="CONTACTWEBTOPIC_ID" length="32">
+                <comment>接触网ID</comment>
+            </column>
+        </many-to-one>
+        <property name="wtms" type="java.lang.String">
+             <column name="WTMS" length="1000">
+                <comment>问题描述</comment>
+            </column>
+        </property>
+        <property name="yhhd" type="java.lang.String">
+             <column name="YHHD" length="500">
+                <comment>用户回答</comment>
+            </column>
+        </property>
+        <property name="sfzq" type="java.lang.String">
+             <column name="SFZQ" length="2">
+                <comment>是否正确,1:正确,0:不正确</comment>
+            </column>
+        </property> 
+        <property name="df" type="java.lang.String">
+            <column name="DF" length="10">
+                <comment>得分</comment>
+            </column>
+        </property>         
+        <property name="df2" type="java.lang.String">
+            <column name="DF2" length="10">
+                <comment>得分2</comment>
+            </column>
+        </property>
+        <property name="bz" type="java.lang.Integer">
+             <column name="BZ" >
+                <comment>备注</comment>
+            </column>
+        </property>                
+    </class>
+</hibernate-mapping>
