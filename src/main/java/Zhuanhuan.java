@@ -29,7 +29,7 @@ public class Zhuanhuan {
 	 * 
 	 * 安全分析
 	 */
-	public static void anquankdzALFXZH() throws Exception
+	public static void anquankdzALFXZH	() throws Exception
 	{
 		String readmeFile = "D:\\work\\Jinye\\项目\\船厂技工\\【康桥校区APP系统升级】\\上海特种设备作业人员理论考试习题集（电梯司机）\\案例分析.txt";
 		File f1 = new File(readmeFile);
